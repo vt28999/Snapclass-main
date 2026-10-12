@@ -29,7 +29,7 @@ def style_background_home():
 
 
 
-    def style_background_dasboard():
+def style_background_dashboard():
      st.markdown("""
         <style>
              
@@ -77,8 +77,8 @@ def style_base_layout():
                   
             }
 
-               h3, h4, p, {
-                 font-familiy: 'outfit', sans-serif; 
+               h3, h4, p {
+                 font-family: 'outfit', sans-serif; 
                  
             }
 
