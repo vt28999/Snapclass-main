@@ -19,8 +19,8 @@ def check_teacher_exists(username):
 def create_teacher(username, password, name):
     
     data ={"username": username, "password": hash_pass(password), "name": name}
-    responce = supabase.table("teachers").insert(data).execute()
-    return responce.data
+    response = supabase.table("teachers").insert(data).execute()
+    return response.data
 
 
 def teacher_login(username, password):
@@ -33,5 +33,11 @@ def teacher_login(username, password):
 
 
 def get_all_students():
-    responce = supabase.table('students').select("*").execute()
-    return responce.data
+    response = supabase.table('students').select("*").execute()
+    return response.data
+
+
+def create_student(new_name, face_embedding=None, voice_embedding=None):
+    data = {'name': new_name, 'face_embedding':face_embedding, "voice_embedding":voice_embedding}
+    response = supabase.table('students').insert(data).execute()
+    return response.data

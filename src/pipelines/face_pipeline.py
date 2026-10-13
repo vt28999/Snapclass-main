@@ -28,11 +28,12 @@ def get_face_embeddings(image_np):
     detector, sp, facerec = load_dlib_models()
     faces = detector(image_np, 1)
 
-    encodings = []
+    encodings= []
 
     for face in faces:
         shape = sp(image_np, face)
         face_descriptor = facerec.compute_face_descriptor(image_np, shape,1) #128embeddings
+
         encodings.append(np.array(face_descriptor))
     return encodings
 @st.cache_resource
@@ -40,12 +41,12 @@ def get_trained_model():
     x = []
     y = []
 
-    students_db = get_all_students()
+    student_db = get_all_students()
 
-    if not students_db:
+    if not student_db:
         return None
 
-    for student in students_db:
+    for student in student_db:
         embedding = student.get('face_embedding')
         if embedding:
             x.append(np.array(embedding))
@@ -71,12 +72,12 @@ def train_classifier():
 def predict_attendance(class_image_np):
      encodings = get_face_embeddings(class_image_np)
 
-     detected_students = {}
+     detected_student = {}
 
      model_data = get_trained_model()
 
      if not model_data:
-         return detected_students, [], len(encodings)
+         return detected_student, [], len(encodings)
 
 
      clf = model_data['clf']
@@ -88,10 +89,10 @@ def predict_attendance(class_image_np):
      for encoding in encodings:
         if len(all_students)>= 2:
             predicted_id= int(clf.predict([encoding])[0])
-        elif len(all_students) == 1:
+        else:
              predicted_id = int(all_students[0]) 
-        else:     
-            continue
+             
+            
         student_embedding = X_train[y_train.index(predicted_id)]  
 
         best_match_score = np.linalg.norm(student_embedding - encoding)
@@ -99,6 +100,6 @@ def predict_attendance(class_image_np):
         resemblance_threshold = 0.6
 
         if best_match_score <= resemblance_threshold:
-            detected_students[predicted_id] = True 
-     return detected_students, all_students, len(encodings)           
+            detected_student[predicted_id] = True 
+     return detected_student, all_students, len(encodings)           
         
