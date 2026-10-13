@@ -18,7 +18,7 @@ def load_dlib_models():
         face_recognition_models.pose_predictor_model_location()
     )
 
-    facerec = dlib.face_recignition_models_v1(
+    facerec = dlib.face_recognition_model_v1(
         face_recognition_models.face_recognition_model_location()
     )
 
@@ -87,17 +87,18 @@ def predict_attendance(class_image_np):
 
      for encoding in encodings:
         if len(all_students)>= 2:
-            predicted_id= int(clf.predict([encodings])[0])
-        else:
-            predicted_id = int(all_students[0]) 
-
+            predicted_id= int(clf.predict([encoding])[0])
+        elif len(all_students) == 1:
+             predicted_id = int(all_students[0]) 
+        else:     
+            continue
         student_embedding = X_train[y_train.index(predicted_id)]  
 
-        best_match_score = np.linalg.norm(student_embedding - encodings)
+        best_match_score = np.linalg.norm(student_embedding - encoding)
 
         resemblance_threshold = 0.6
 
         if best_match_score <= resemblance_threshold:
             detected_students[predicted_id] = True 
-     return detected_students, all_students, len(encoding)           
+     return detected_students, all_students, len(encodings)           
         

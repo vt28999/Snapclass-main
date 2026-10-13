@@ -4,7 +4,8 @@ from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
 from PIL import Image
 import numpy as np
-from src.pipelines.face_pipeline import predict_attendance
+from src.pipelines.face_pipeline import predict_attendance, get_face_embeddings
+from src.pipelines.voice_pipeline import get_voice_embedding
 from src.database.db import get_all_students
 import time
 
@@ -80,7 +81,27 @@ def student_screens():
 
                 try:
                     audio_data = st.audio_input('Record a short phrase like i am present, my name is vivek.')
-                except Exception: 
+                except Exception:
+                         st.error('Audio Data failed') 
+
+                if st.button('Create Account', type='primary'):
+                    if new_name:
+                        with st.spinner('Creating profile..'):
+                             img = np.array(Image.open(photo_source))
+                             encodings= get_face_embeddings(img)
+                             if encodings:
+                                 face_emb = encodings[0].tolist()
+
+                                 voice_emb = None
+                                 if audio_data:
+                                     voice_emb = get_face_embeddings(audio_data.read())
+
+                                 response_data = create_student(new_name, face_embedding=face_emb,voice_embedding=voice_emb)
+
+                                 if response_data:
+
+                else:
+                    st.warning('please enter your name!')
 
                  footer_dashboard()           
     
