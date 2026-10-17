@@ -15,7 +15,7 @@ def style_background_home():
                 padding:15px !important;
                 border-radius: 25px !important;
                 width: 200px !important;
-                max-width: 200px !mportant;
+                max-width: 200px !important;
                 min-width: 200px !important;
                 height:310px !important;
                 max-width: 310px !important;
@@ -82,7 +82,7 @@ def style_base_layout():
                  
             }
 
-                    button{
+                    button[kind="primary"] {
                             border-radius: 1.5rem !important;
                             background-color: #5865F2 !important;
                             color: white !important;
@@ -91,7 +91,7 @@ def style_base_layout():
                             transition: background-color 0.25s ease-in-out !important;
                             }        
                        
-                    button [kind="secondary"] {
+                    button[kind="secondary"] {
                                             border-radius: 1.5rem !important;
                                             background-color: #E8459E !important;
                                             color: white !important;
@@ -100,7 +100,7 @@ def style_base_layout():
                                             transition: background-color 0.25s ease-in-out !important;
                                             } 
             
-                    button [kind="tertiary"] {
+                    button[kind="tertiary"] {
                                             border-radius: 1.5rem !important;
                                             background-color: black !important;
                                             color: white !important;
@@ -111,13 +111,10 @@ def style_base_layout():
                          
                    button:hover {
                         transform: scale(1.05)}     
-            
-            
-            
-            
-                    </style>
-                              """
-                            ,unsafe_allow_html=True)
+
+        </style>
+                """
+            ,unsafe_allow_html=True)
             
 
 
