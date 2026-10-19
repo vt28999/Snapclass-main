@@ -16,6 +16,7 @@ from src.components.subject_card import subject_card
 def student_dashboard():
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
+ 
     c1, c2 = st.columns(  2, vertical_alignment='center', gap='xxlarge')
     with c1:
          header_dashboard()
@@ -131,31 +132,30 @@ def student_screens():
                        st.session_state.is_logged_in = True
                        st.session_state.user_role = 'student' 
                        st.session_state.student_data = student
-                       st.toast(f'Welcome Back{student['name']}')
+                       st.toast(f'Welcome Back {student['name']}')
                        time.sleep(1)
                        st.rerun()
                else:       
                    st.info('Face not recognized! You might be a new student!')
                    show_registration = True
-
     if show_registration:
-           with st.container(border=True):
-                st.header('register New Profile')
-                new_name = st.text_input("Enter your name", placeholder='E.g.VIVEK TIWARY')
+        with st.container(border=True):
+             st.header('register New Profile')
+             new_name = st.text_input("Enter your name", placeholder='E.g.VIVEK TIWARY')
 
 
-                st.subheader('Optional : Voice Enrollment')
-                st.info("Enroll your for Voice only Attendance")
+             st.subheader('Optional : Voice Enrollment')
+             st.info("Enroll your for Voice only Attendance")
 
 
-                audio_data = None
+             audio_data = None
 
-                try:
+             try:
                     audio_data = st.audio_input('Record a short phrase like i am present, my name is vivek.')
-                except Exception:
-                         st.error('Audio Data failed') 
+             except Exception:
+                st.error('Audio Data failed') 
 
-                if st.button('Create Account', type='primary'):
+             if st.button('Create Account', type='primary'):
                     if new_name:
                         with st.spinner('Creating profile..'):
                              img = np.array(Image.open(photo_source))
@@ -167,20 +167,20 @@ def student_screens():
                                  if audio_data:
                                      voice_emb = get_voice_embedding(audio_data.read())
 
-                                 response_data = create_student(new_name, face_embedding=face_emb,voice_embedding=voice_emb)
+                                 response_data = create_student(new_name, face_embedding=face_emb, voice_embedding=voice_emb)
 
                                  if response_data:
                                       train_classifier()
                                       st.session_state.is_logged_in = True
                                       st.session_state.user_role = 'student' 
-                                      st.session_state.student_data =response_data[0]
-                                      st.toast(f'Profile Create! HI{new_name}!')
+                                      st.session_state.student_data = response_data[0]
+                                      st.toast(f'Profile Created! Hi{new_name}!')
                                       time.sleep(1)
                                       st.rerun()
                                  else:
-                                     st.error('Couldnt capture your facial for registration')
-                else:
-                    st.warning('please enter your name!')
+                                    st.error('Couldnt capture your facial for registration')
+                    else:
+                      st.warning('please enter your name!')
 
     footer_dashboard()           
     
