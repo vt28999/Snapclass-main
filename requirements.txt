@@ -6,7 +6,10 @@ supabase
 bcrypt
 segno
 pillow
-face_recognition_models
+dlib-bin
+git+https://github.com/ageitgey/face_recognition_models
+resemblyzer
+librosa
 
 
 
