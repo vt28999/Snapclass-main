@@ -6,7 +6,7 @@ supabase
 bcrypt
 segno
 pillow
-dlib
+face_recognition_models
 
 
 
