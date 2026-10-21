@@ -1,16 +1,13 @@
-
 streamlit
-numpy
+numpy==1.26.4
 pandas
 scikit-learn
 supabase
 bcrypt
 segno
 pillow
-setuptools<70.0.0
 cmake
-dlib
 face-recognition
-git+https://github.com/ageitgey/face_recognition_models
 librosa
 resemblyzer
+torch --index-url https://download.pytorch.org/whl/cpu
