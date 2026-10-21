@@ -1,13 +1,13 @@
 streamlit
-numpy==1.26.4
+numpy
 pandas
 scikit-learn
 supabase
 bcrypt
 segno
 pillow
-cmake
-face-recognition
-librosa
-resemblyzer
-torch --index-url https://download.pytorch.org/whl/cpu
+
+
+
+
+
