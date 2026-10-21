@@ -132,7 +132,7 @@ def student_screens():
                        st.session_state.is_logged_in = True
                        st.session_state.user_role = 'student' 
                        st.session_state.student_data = student
-                       st.toast(f'Welcome Back {student['name']}')
+                       st.toast(f"Welcome Back {student['name']}")
                        time.sleep(1)
                        st.rerun()
                else:       
